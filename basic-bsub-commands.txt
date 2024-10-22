@@ -1,0 +1,2 @@
+bsub -G compute-artsci -q artsci-interactive -a "docker(r-base:latest)" Rscript RIS-quickstart/basic-r.R
+bsub -G compute-artsci -q artsci-interactive -a "docker(python:latest)" python basic-python.py
