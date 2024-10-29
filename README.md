@@ -18,10 +18,18 @@ To access the RIS cluster, you will need to perform the following steps.
 ## Task 4: Running a basic non-interactive job
 
 ## Task 5: Running a basic interactive job
+The only real reason to run an interactive job is for troubleshooting and last
+fine tuning.
 
 ## Task 6: How Docker Works
 
 ## Task 7: Making a custom Docker container
+
+## Task 8: Running batches of jobs
+`https://docs.ris.wustl.edu/doc/compute/recipes/job-execution-examples.html?highlight=job%20array#arrays`
+The scripts for this could be `output-file-r.R` and  `output-file-python.py`
+The trick with this will be to name the file the name of the job id from the
+bsub command 
 
 ### Helpful commands if your job is stuck or exiting early
 
@@ -34,6 +42,8 @@ If your job is stuck without landing, or your job lands and immediatly deletes i
 5. If your job exits right away, your job is crashing for some reason. You should run `cd ondemand/data/sys/dashboard/batch_connect/sys/jupyter/output/`, use `ls -lh` to find the most recently created folder, and `cd` into that folder. You can then view the output with `cat output.log` (or use `less output.log` if your file is really long. Exit `less` by typing in the letter `q`)
    - One common scenario why jobs might crash immediately is because storage1 is not set up correctly. If you try leaving the `Mounts` parameter empty and your new job doesn't crash, it means your RIS Storage hasn't been set up. Submit a ticket on RIS
 6. `bhosts -w -gpu general-interactive` can be used to see what GPU's are available to a given queue. The queue in this case is `general-interactive` 
+7. `Exited with exit code 137.` is the error message you get if your job ran out
+   of memory.
 
 ## Task 3: Run your first Jupyter Notebook
 
