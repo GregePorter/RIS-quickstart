@@ -1,8 +1,17 @@
-This repository contains all the information you need to get started running Python and Jupyter Lab on the CPUs and GPUs available on WashU's RIS Cluster
+This repository contains all the information you need to start running jobs on the CPUs and GPUs available on WashU's RIS Cluster.
 
 ## Task 1: Getting Access
 
 First, you will need to get access to the RIS Cluster. Each faculty gets 5TB of free storage on the RIS Storage Cluster and access to open CPUs and GPUs on the Compute Cluster. If you're a student, you will simply be assigned access to your advisor's resources. To request access, submit a ticket at https://ris.wustl.edu/support/service-desk/. This process will probably take a few days, and you'll need your advisor to oversee the process.
+
+For the purposes of this workshop (if you are reading this during the workshop), you will have been given temporary access! For this temporary access, your storage location will be 
+`/storage1/fs1/workshops/Active/HPCatWashU/`
+
+and your queue and workgroup will be the following:
+`-q workshop `
+`-G compute-workshop`
+
+We'll come back to the queue and workgroups later when we are running jobs.
 
 ## Task 2: Connecting to the RIS
 
@@ -10,14 +19,19 @@ To access the RIS cluster, you must perform the following steps.
 
 1. If you are off-campus, you must be on the WashU VPN. Instructions on how to do so can be found at https://it.wustl.edu/items/connect/.
 2. You should open a terminal on your computer, and SSH into the compute environment with the command `ssh <wustl-key>@compute1-client-<N>.ris.wustl.edu` where `<key>` is your official WUSTL key, and `<N>` can be any number from 1 to 4
-   - e.g. `g.porter@compute1-client-4.ris.wustl.edu`
-   - It should be noted that despite being called `compute1`, this is a "login" node, not a "compute" node. This means that you should not run any complicated code, you should instead use a "compute" node to run your code, using the steps either in Task 3, Task 11, or Task 12.
+   - e.g. `g.porter@compute1-client-4.ris.wustl.edu` or `g.porter@compute1-client-2.ris.wustl.edu`
 
 ## Task 3: Installing Globus
 Globus is the recommended method of transferring data and scripts to the RIS.
 1. [Install Globus Connect Personal](https://docs.globus.org/globus-connect-personal/install/) - this will allow you to access your local files to them push to the RIS
 2. [Connect to the RIS](https://docs.globus.org/globus-connect-personal/install/)
-3. Find the desired files and transfer them to your home or storage1 directory
+3. Once you're connected, look for the Storage1 collection
+4. For this workshop, your storage1 location will be `/storage1/fs1/workshops/Active/HPCatWashU/` so use that as your path.
+5. On your local machine, look for your local collections
+6. Find the desired files, select them and click Start to transfer them to the destination (the storage1 location)
+7. We'll start by transferring a Python script which can be found in this repository.
+
+Exercise 1: Transfer the R script in this repository
 
 ## Task 4: Running job!
 
