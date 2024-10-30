@@ -6,24 +6,51 @@ First, you will need to get access to the RIS Cluster. Each faculty gets 5TB of 
 
 ## Task 2: Connecting to the RIS
 
-To access the RIS cluster, you will need to perform the following steps.
+To access the RIS cluster, you must perform the following steps.
 
-1. If you are off-campus, you will need to be on the WashU VPN. Instructions on how to do so can be found at https://it.wustl.edu/items/connect/.
+1. If you are off-campus, you must be on the WashU VPN. Instructions on how to do so can be found at https://it.wustl.edu/items/connect/.
 2. You should open a terminal on your computer, and SSH into the compute environment with the command `ssh <wustl-key>@compute1-client-<N>.ris.wustl.edu` where `<key>` is your official WUSTL key, and `<N>` can be any number from 1 to 4
    - e.g. `g.porter@compute1-client-4.ris.wustl.edu`
    - It should be noted that despite being called `compute1`, this is a "login" node, not a "compute" node. This means that you should not run any complicated code, you should instead use a "compute" node to run your code, using the steps either in Task 3, Task 11, or Task 12.
 
 ## Task 3: Installing Globus
+Globus is the recommended method of transferring data and scripts to the RIS.
+1. [Install Globus Connect Personal](https://docs.globus.org/globus-connect-personal/install/) - this will allow you to access your local files to them push to the RIS
+2. [Connect to the RIS](https://docs.globus.org/globus-connect-personal/install/)
+3. Find the desired files and transfer them to your home or storage1 directory
 
-## Task 4: Running a basic non-interactive job
+## Task 4: Running job!
 
-## Task 5: Running a basic interactive job
-The only real reason to run an interactive job is for troubleshooting and last
-fine tuning.
+There are two main ways to run jobs on the RIS: non-interactive and interactive.
 
-## Task 6: How Docker Works
+## Task 4.1: Running a basic non-interactive job
+A non-interactive job means that you run the bsub command and you'll get a message that looks something like:
+
+`Job <876747> is submitted to queue <artsci-interactive>`
+
+You'll get an email when the job finishes. This email will contain information about the job and all the text printed to the terminal.
+
+To run a basic job,
+1. SSH into the RIS;
+   `ssh g.porter@compute1-client-4.ris.wustl.edu` (where `g.porter` is replaced by your username)
+2. Once here, we can run the `bsub` command to run the job.
+3. In our case, the script will be in our storage location. So the command with be
+     `bsub `
+## Task 4.2: Running a basic interactive job
+An interactive job will not send you an email, instead, it will print everything to the terminal - it's just like if you ran a script locally on your machine.
+
+Note, there is a time limit of 24 hours on interactive jobs so the only real reason to run an interactive job is for troubleshooting and last fine-tuning.
+
+## Task 5: How Docker Works
+
+A common question for Docker is "What is Docker and how does it compare to a virtual machine?"
+
+A virtual machine requires the system to designate a portion of memory, hard drive space, and computing power to that machine. Docker doesn't lock that memory so it gives you a lot more flexibility.
+
+[This is a little video that helped me better understand the components of Docker](https://www.youtube.com/watch?v=mxVkNGkzuxU).
 
 ## Task 7: Making a custom Docker container
+
 
 ## Task 8: Running batches of jobs
 `https://docs.ris.wustl.edu/doc/compute/recipes/job-execution-examples.html?highlight=job%20array#arrays`
