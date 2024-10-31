@@ -75,7 +75,7 @@ An interactive job will not send you an email, instead, it will print everything
 
 Let's look at three examples.
 
-## `python basic-python.py`
+### `python basic-python.py`
 
 Just like with the non-interactive jobs, the last part of the command (`python basic-python.py`) is the command that will run when job starts.
 
@@ -83,16 +83,19 @@ If we run the following, the output of the script will printed to the terminal a
 
 `bsub -Is -G compute-artsci -q artsci-interactive -a "docker(python:latest)" python basic-python.py`
 
+### `python`
 Now, for an actually interactive job, we can run the following to open up a python prompt
 
 `bsub -Is -G compute-artsci -q artsci-interactive -a "docker(python:latest)" python`
 
+### `/bin/bash`
 Similarly, we can open up a regular bash terminal with the following
 
 `bsub -Is -G compute-artsci -q artsci-interactive -a "docker(python:latest)" /bin/bash`
 
 The command for running an interactive job is largely the same as a non-interactive job.
 
+### Additional notes
 Note, there is a time limit of 24 hours on interactive jobs so the only real reason to run an interactive job is for troubleshooting and last fine-tuning.
 
 # Task 5: How Docker Works
@@ -105,6 +108,35 @@ A virtual machine requires the system to designate a portion of memory, hard dri
 
 # Task 7: Making a custom Docker container
 
+Note, for this part, we'll need to have a DockerHub account.
+
+So we have this notion of a base docker container like `r-base` or `python`. What happens if we want to do something with additional libraries like `bigmemory` or `numpy`? To do this, we would have to make our dockerfile, build it (locally or on the RIS), and upload it to Dockerhub.
+
+We'll start with `Python` and then the exercise will be to do it with `R`
+1. Let's open up the [Dockerfile-python in this repository](https://github.com/GregePorter/RIS-quickstart/blob/main/Dockerfile-python)
+2. Once we have it downloaded, we have two options - build it locally and build it on the RIS.
+
+### Building locally
+If you have Docker installed locally, we'll build it from the terminal.
+
+1. Open the Terminal
+2. `cd` to the location of your Dockerfile
+3. Run the docker build command
+4. Run the docker run command to confirm it works
+5. Tag the docker image container
+6. Push it to DockerHub
+
+### Building on the RIS
+If you have an M1 Mac, you'll have to build on the RIS. 
+
+1. Transfer the Dockerfile to your storage1 location on the RIS
+2. `ssh` into the RIS
+3. Run the docker build command
+   This will tag and push the image to DockerHub
+
+
+### Run the new Docker container
+This process is the same as the earlier task. Instead of pointing the `bsub` command to `"docker(python:latest)"` we'll point it to you DockerHub account, image and tag.
 
 # Task 8: Running batches of jobs
 `https://docs.ris.wustl.edu/doc/compute/recipes/job-execution-examples.html?highlight=job%20array#arrays`
