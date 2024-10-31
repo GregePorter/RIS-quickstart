@@ -5,13 +5,14 @@ This repository contains all the information you need to start running jobs on t
 First, you will need to get access to the RIS Cluster. Each faculty gets 5TB of free storage on the RIS Storage Cluster and access to open CPUs and GPUs on the Compute Cluster. If you're a student, you will simply be assigned access to your advisor's resources. To request access, submit a ticket at https://ris.wustl.edu/support/service-desk/. This process will probably take a few days, and you'll need your advisor to oversee the process.
 
 For the purposes of this workshop (if you are reading this during the workshop), you will have been given temporary access! For this temporary access, your storage location will be 
+
 `/storage1/fs1/workshops/Active/HPCatWashU/`
 
 and your queue and workgroup will be the following:
 `-q workshop `
 `-G compute-workshop`
 
-We'll come back to the queue and workgroups later when we are running jobs.
+We'll return to the queue and group later when we run jobs.
 
 # Task 2: Connecting to the RIS
 
@@ -28,7 +29,7 @@ Globus is the recommended method of transferring data and scripts to the RIS.
 3. Once you're connected, look for the Storage1 collection
 4. For this workshop, your storage1 location will be `/storage1/fs1/workshops/Active/HPCatWashU/` so use that as your path.
 5. On your local machine, look for your local collections
-6. Find the desired files, select them and click Start to transfer them to the destination (the storage1 location)
+6. Find the desired files, select them, and click Start to transfer them to the destination (the storage1 location)
 7. We'll start by transferring [a Python script](https://github.com/GregePorter/RIS-quickstart/blob/ede971a3a88933ec91dc296a577ee683446073ec/basic-python.py) which can be found in this repository.
 
 ## Exercise 1: Transfer the [R script in this repository](https://github.com/GregePorter/RIS-quickstart/blob/ede971a3a88933ec91dc296a577ee683446073ec/basic-r.R) to your storage1 location
@@ -38,9 +39,9 @@ Globus is the recommended method of transferring data and scripts to the RIS.
 There are two main ways to run jobs on the RIS: non-interactive and interactive.
 
 # Task 4.1: Running a basic non-interactive job
-A non-interactive job means that you run the bsub command and you'll get a message that looks something like:
+A non-interactive job means that you run the bsub command and you'll get a message that looks something like this:
 
-`Job <876747> is submitted to queue <artsci-interactive>`
+`Job <876747> is submitted to queue <workshop>`
 
 You'll get an email when the job finishes. This email will contain information about the job and all the text printed to the terminal.
 
@@ -61,7 +62,7 @@ To run a basic job,
 
 Let's break down this command.
 - `bsub` this allows a user to "submit a job for batched execution"
-- `-G compute-artsci` specifies the Group that one is a member of (I'm part of `compute-artsci` and for the purposes of this workshop, you will be part of `compute-workshop`)
+- `-G compute-artsci` specifies the Group that one is a member of (I'm part of `compute-artsci` and for, the purposes of this workshop, you will be part of `compute-workshop`)
 - `-q artsci-interactive` specifies the Queue into which you will submit the job. `workshop` will be the Queue you use for the workshop.
 - `-a "docker(python:latest)"` specifies which image you use. Let's break this down a little more too
    - `docker` means to go up to DockerHub (we'll talk more about this later)
@@ -70,10 +71,24 @@ Let's break down this command.
 - `python basic-python.py` this is the command that will run when the docker container starts. In a non-interactive job, this is the thing that runs and you'll see the output in the resultant email. We can open up the `basic-python.py` to understand what we should expect to see. 
 
 # Task 4.2: Running a basic interactive job
-An interactive job will not send you an email, instead, it will print everything to the terminal. The key difference is the flag `-Is`
+An interactive job will not send you an email, instead, it will print everything to the terminal or allow you to type as if it were an ssh terminal (or python prompt). The key difference is the flag `-Is`.
 
-TODO - continue this part. Confirm that `bsub -Is -G compute-artsci -q artsci-interactive -a "docker(python:latest)" python basic-python.py` will output it to the terminal. Then compare 
-`bsub -Is -G compute-artsci -q artsci-interactive -a "docker(python:latest)" python` and
+Let's look at three examples.
+
+## `python basic-python.py`
+
+Just like with the non-interactive jobs, the last part of the command (`python basic-python.py`) is the command that will run when job starts.
+
+If we run the following, the output of the script will printed to the terminal and, once the script ends, the job will end.
+
+`bsub -Is -G compute-artsci -q artsci-interactive -a "docker(python:latest)" python basic-python.py`
+
+Now, for an actually interactive job, we can run the following to open up a python prompt
+
+`bsub -Is -G compute-artsci -q artsci-interactive -a "docker(python:latest)" python`
+
+Similarly, we can open up a regular bash terminal with the following
+
 `bsub -Is -G compute-artsci -q artsci-interactive -a "docker(python:latest)" /bin/bash`
 
 The command for running an interactive job is largely the same as a non-interactive job.
