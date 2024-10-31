@@ -31,7 +31,7 @@ Globus is the recommended method of transferring data and scripts to the RIS.
 6. Find the desired files, select them and click Start to transfer them to the destination (the storage1 location)
 7. We'll start by transferring a Python script which can be found in this repository.
 
-Exercise 1: Transfer the R script in this repository
+Exercise 1: Transfer the R script in this repository to your storage1 location
 
 ## Task 4: Running job!
 
@@ -49,9 +49,26 @@ To run a basic job,
    `ssh g.porter@compute1-client-4.ris.wustl.edu` (where `g.porter` is replaced by your username)
 2. Once here, we can run the `bsub` command to run the job.
 3. In our case, the script will be in our storage location. So the command with be
-     `bsub `
+     `bsub -G compute-artsci -q artsci-interactive -a "docker(python:latest)" python basic-python.py`
+
+Let's break down this command.
+`bsub` this allows a user to "submit a job for batched execution"
+`-G compute-artsci` specifies the Group that one is a member of (I'm part of `compute-artsci` and for the purposes of this workshop, you will be part of `compute-workshop`)
+`-q artsci-interactive` specifies the Queue into which you will submit the job. `workshop` will be the Queue you use for the workshop.
+`-a "docker(python:latest)"` specifies which image you use. Let's break this down a little more too
+   `docker` means to go up to DockerHub (we'll talk more about this later)
+   `(python:` means to look for the [official Python container image on docker hub](https://hub.docker.com/_/python)
+   `:latest)"` tells docker to look for the Tag (or specific version of the `python` container image). There are a bunch of tags that refer to different versions (like `3.9.20` or `3.14.0a1-slim-bullseye`) which are all listed on Docker Hub.
+`python basic-python.py` this is the command that will run when the docker container starts. In a non-interactive job, this is the thing that runs and you'll see the output in the resultant email. We can open up the `basic-python.py` to understand what we should expect to see. 
+
 ## Task 4.2: Running a basic interactive job
-An interactive job will not send you an email, instead, it will print everything to the terminal - it's just like if you ran a script locally on your machine.
+An interactive job will not send you an email, instead, it will print everything to the terminal. The key difference is the flag `-Is`
+
+TODO - continue this part. Confirm that `bsub -Is -G compute-artsci -q artsci-interactive -a "docker(python:latest)" python basic-python.py` will output it to the terminal. Then compare 
+`bsub -Is -G compute-artsci -q artsci-interactive -a "docker(python:latest)" python` and
+`bsub -Is -G compute-artsci -q artsci-interactive -a "docker(python:latest)" /bin/bash`
+
+The command for running an interactive job is largely the same as a non-interactive job.
 
 Note, there is a time limit of 24 hours on interactive jobs so the only real reason to run an interactive job is for troubleshooting and last fine-tuning.
 
@@ -85,6 +102,13 @@ If your job is stuck without landing, or your job lands and immediatly deletes i
 6. `bhosts -w -gpu general-interactive` can be used to see what GPU's are available to a given queue. The queue in this case is `general-interactive` 
 7. `Exited with exit code 137.` is the error message you get if your job ran out
    of memory.
+
+### Noteable documentation pages 
+1. [Job examples](https://docs.ris.wustl.edu/doc/compute/recipes/job-execution-examples.html?highlight=span)
+2. [Accessing storage from jobs](https://docs.ris.wustl.edu/doc/compute/recipes/ris-compute-storage-volumes.html?highlight=volume#normal-operations)
+   2.1 - Once you've SSH'ed into the RIS, run `export STORAGEN=<path_to_your_storage1_folder>` so mine would be `export STORAGEN=/storage1/fs1/artsci/Active/g.porter`. For this workshop, you're would be something along the lines of `export STORAGE=/storage1/fs1/workshops/Active/HPCatWashU/`.
+   2.2 - Then run the command export `LSF_DOCKER_VOLUMES="$STORAGE:$STORAGE"`
+   2.3 - Once you run this, your home directory and your storage directory will be available in the docker container. So if you ran an interactive job, you could run `cd $STORAGE` and be taken to your storage directory.
 
 ## Task 3: Run your first Jupyter Notebook
 
