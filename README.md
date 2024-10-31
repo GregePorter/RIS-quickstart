@@ -109,8 +109,28 @@ A virtual machine requires the system to designate a portion of memory, hard dri
 # Task 8: Running batches of jobs
 `https://docs.ris.wustl.edu/doc/compute/recipes/job-execution-examples.html?highlight=job%20array#arrays`
 The scripts for this could be `output-file-r.R` and  `output-file-python.py`
-The trick with this will be to name the file the name of the job id from the
-bsub command 
+The trick with this will be to name the file the name of the job id from the `bsub` command.
+
+# Task 9: Making STORAGE, HOME, and other files available to the jobs
+We can set environment variables using the following commands
+```
+export STORAGE=/storage1/fs1/workshops/Active/HPCatWashU
+export HOME=/home/g.porter
+export LSF_DOCKER_VOLUMES="$STORAGE:$STORAGE $HOME:$HOME"
+```
+
+Your jobs will then have `STORAGE` and `HOME` available to them. For Python, you can use the `os` library to access the environment variables. 
+```
+import os
+print(os.environ['STORAGE'])
+```
+
+When you run an interactive job with that in the code, you'll see 
+
+`/storage1/fs1/workshops/Active/HPCatWashU`
+
+in the output.
+
 
 ### Helpful commands if your job is stuck or exiting early
 
