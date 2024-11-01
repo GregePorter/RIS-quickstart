@@ -20,7 +20,7 @@ To access the RIS cluster, you must perform the following steps.
 
 1. You should open a terminal on your computer, and SSH into the compute environment with the command `ssh <wustl-key>@compute1-client-<N>.ris.wustl.edu` where `<key>` is your official WUSTL key, and `<N>` can be any number from 1 to 4
    - e.g. `g.porter@compute1-client-4.ris.wustl.edu` or `g.porter@compute1-client-2.ris.wustl.edu`
-2. You will be prompted for your password. Enter your Wustl Key password.
+2. You will be prompted for your password. Enter your Wustl Key password. Note, you won't see the characters as you type them.
 
 TODO: You might be prompted to accept a security fingerprint
 
