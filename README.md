@@ -18,9 +18,13 @@ We'll return to the queue and group later when we run jobs.
 
 To access the RIS cluster, you must perform the following steps.
 
-1. If you are off-campus, you must be on the WashU VPN. Instructions on how to do so can be found at https://it.wustl.edu/items/connect/.
-2. You should open a terminal on your computer, and SSH into the compute environment with the command `ssh <wustl-key>@compute1-client-<N>.ris.wustl.edu` where `<key>` is your official WUSTL key, and `<N>` can be any number from 1 to 4
+1. You should open a terminal on your computer, and SSH into the compute environment with the command `ssh <wustl-key>@compute1-client-<N>.ris.wustl.edu` where `<key>` is your official WUSTL key, and `<N>` can be any number from 1 to 4
    - e.g. `g.porter@compute1-client-4.ris.wustl.edu` or `g.porter@compute1-client-2.ris.wustl.edu`
+2. You will be prompted for your password. Enter your Wustl Key password.
+
+TODO: You might be prompted to accept a security fingerprint
+
+If you are off-campus, you must be on the WashU VPN. Instructions on how to do so can be found at https://it.wustl.edu/items/connect/.
 
 # Task 3: Installing Globus
 Globus is the recommended method of transferring data and scripts to the RIS.
