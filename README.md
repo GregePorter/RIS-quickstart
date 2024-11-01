@@ -32,10 +32,13 @@ Globus is the recommended method of transferring data and scripts to the RIS.
 6. Find the desired files, select them, and click Start to transfer them to the destination (the storage1 location)
 7. We'll start by transferring [a Python script](https://github.com/GregePorter/RIS-quickstart/blob/ede971a3a88933ec91dc296a577ee683446073ec/basic-python.py) which can be found in this repository.
 
-## Exercise 1: Transfer an R script
+## Exercise 1.1: Make a directory in the workshop's storage1 location
+   You could do this via `ssh` with a command like `mkdir` or in Globus.
+   
+## Exercise 1.2: Transfer an R script
 Transfer the [R script in this repository](https://github.com/GregePorter/RIS-quickstart/blob/ede971a3a88933ec91dc296a577ee683446073ec/basic-r.R) to your storage1 location
 
-# Task 4: Running job!
+# Task 4: Running jobs
 
 There are two main ways to run jobs on the RIS: non-interactive and interactive.
 
@@ -163,7 +166,6 @@ When you run an interactive job with that in the code, you'll see
 `/storage1/fs1/workshops/Active/HPCatWashU`
 
 in the output.
-
 
 ### Helpful commands if your job is stuck or exiting early
 
