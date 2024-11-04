@@ -26,16 +26,19 @@ If you are off-campus, you must be on the WashU VPN. Instructions on how to do s
 
 # Task 3: Installing Globus
 Globus is the recommended method of transferring data and scripts to the RIS.
-1. [Install Globus Connect Personal](https://docs.globus.org/globus-connect-personal/install/) - this will allow you to access your local files to them push to the RIS
-2. [Connect to the RIS](https://docs.ris.wustl.edu/doc/storage/globus.html)
-3. Once you're connected, look for the Storage1 collection
-4. For this workshop, your storage1 location will be `/storage1/fs1/workshops/Active/HPCatWashU/` so use that as your path.
-5. On your local machine, look for your local collections
-6. Find the desired files, select them, and click Start to transfer them to the destination (the storage1 location)
-7. We'll start by transferring [a Python script](https://github.com/GregePorter/RIS-quickstart/blob/ede971a3a88933ec91dc296a577ee683446073ec/basic-python.py) which can be found in this repository.
+1. [Install Globus Connect Personal](https://docs.globus.org/globus-connect-personal/install/) - this will allow you to access your local files to then push to the RIS
+2. Open the [Globus App](https://app.globus.org/)
+3. Login with your Wustl Key
+4. Once you're connected, look for the Storage1 collection
+5. For this workshop, your storage1 location will be `/storage1/fs1/workshops/Active/HPCatWashU/` so use that as your path.
+6. On your local machine, look for your local collections
+7. Find the desired files, select them, and click Start to transfer them to the destination (the storage1 location)
+8. We'll start by transferring [a Python script](https://github.com/GregePorter/RIS-quickstart/blob/ede971a3a88933ec91dc296a577ee683446073ec/basic-python.py) which can be found in this repository.
+
+Note, the RIS has some [additional tutorials related to Globus](https://docs.ris.wustl.edu/doc/storage/globus.html)
 
 ## Exercise 1.1: Make a directory in the workshop's storage1 location
-   When you've navigated to your destination in Globus, control + click (or right-click) some whitespace. You'll see a window popup. Select New Folder. Name it your name.
+   When you've navigated to your destination in Globus, control + click (or right-click) some whitespace. You'll see a window popup. Select New Folder. Name it your name. This will be your directory for the rest of the workshot.
    
 ## Exercise 1.2: Transfer an R script
 Transfer the [R script in this repository](https://github.com/GregePorter/RIS-quickstart/blob/ede971a3a88933ec91dc296a577ee683446073ec/basic-r.R) to your storage1 location
@@ -169,7 +172,7 @@ When you run an interactive job with that in the code, you'll see
 
 in the output.
 
-### Helpful commands if your job is stuck or exiting early
+### Helpful commands
 
 If your job is stuck without landing, or your job lands and immediatly deletes itself, here are some commands you can try.
 
@@ -177,11 +180,12 @@ If your job is stuck without landing, or your job lands and immediatly deletes i
 2. Use `bjobs -wa` to show all of your current and recent jobs
 3. If your job hasn't landed yet (still grey), then run `bjobs -l <job-id>`, which will give you a reason for why your job hasn't landed yet
 4. If your job has landed but is still blue after more than 10-15 minutes of waiting, then you can run `bpeek <job-id>` to view the current status of the job.
-5. If your job exits right away, your job is crashing for some reason. You should run `cd ondemand/data/sys/dashboard/batch_connect/sys/jupyter/output/`, use `ls -lh` to find the most recently created folder, and `cd` into that folder. You can then view the output with `cat output.log` (or use `less output.log` if your file is really long. Exit `less` by typing in the letter `q`)
-   - One common scenario why jobs might crash immediately is because storage1 is not set up correctly. If you try leaving the `Mounts` parameter empty and your new job doesn't crash, it means your RIS Storage hasn't been set up. Submit a ticket on RIS
 6. `bhosts -w -gpu general-interactive` can be used to see what GPU's are available to a given queue. The queue in this case is `general-interactive` 
 7. `Exited with exit code 137.` is the error message you get if your job ran out
    of memory.
+8. You can view what groups you are a member in using the `groups` command.
+9. And you can view all available queues using bqueues. If you want to see which queues you can access specifically, add the -u WUSTL_KEY_ID option.
+     `bqueues -u g.porter` would be mine.
 
 ### Noteable documentation pages 
 1. [Job examples](https://docs.ris.wustl.edu/doc/compute/recipes/job-execution-examples.html?highlight=span)
