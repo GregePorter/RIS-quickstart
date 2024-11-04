@@ -29,7 +29,7 @@ If you are off-campus, you must be on the WashU VPN. Instructions on how to do s
 # Task 3: Installing Globus
 Globus is the recommended method of transferring data and scripts to the RIS.
 1. [Install Globus Connect Personal](https://docs.globus.org/globus-connect-personal/install/) - this will allow you to access your local files to them push to the RIS
-2. [Connect to the RIS](https://docs.globus.org/globus-connect-personal/install/)
+2. [Connect to the RIS](https://docs.ris.wustl.edu/doc/storage/globus.html)
 3. Once you're connected, look for the Storage1 collection
 4. For this workshop, your storage1 location will be `/storage1/fs1/workshops/Active/HPCatWashU/` so use that as your path.
 5. On your local machine, look for your local collections
