@@ -1,7 +1,4 @@
 import numpy 
-import os
-print(os.environ['HOME'])
-print(os.environ)
 
 array = numpy.array([[2, 4, 6], 
                  [8, 10, 12], 
