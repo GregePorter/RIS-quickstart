@@ -1,0 +1,8 @@
+#!/bin/bash
+#BSUB -n 2
+#BSUB -Is
+#BSUB -q workshop
+#BSUB -G compute-workshop
+#BSUB -a "docker(python:latest)"
+
+python basic-python.py
