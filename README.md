@@ -107,6 +107,40 @@ The command for running an interactive job is largely the same as a non-interact
 ### Additional notes
 Note, there is a time limit of 24 hours on interactive jobs so the only real reason to run an interactive job is for troubleshooting and last fine-tuning.
 
+# Task 6: Finding Docker Images
+
+The above examples are solid for basic scripts. What happens if you use an image without any libraries to run an interactive or non-interactive job with a script that needs a particular library?
+
+If you run 
+
+`bsub -Is -G compute-artsci -q artsci-interactive -a "docker(python:latest)" python output-file-r.R`
+
+then you'll get an error saying:
+
+   Traceback (most recent call last):
+  File "/home/g.porter/storage1/RIS-quickstart/output-file-python.py", line 1, in <module>
+    import numpy
+ModuleNotFoundError: No module named 'numpy'
+
+This is because `numpy` hasn't been installed yet. 
+
+So we have two options - find a Docker Container Image that works or make our own.
+
+The RIS suggests that you try to find an image that already exists that takes care of your needs. So check out DockerHub to see if there's an image out there on [https://hub.docker.com/](https://hub.docker.com/)
+
+While we're here, let's make a Docker Hub account. We'll use this when it comes time to make our own images, we'll use this same account.
+
+$ Task 6.1 
+
+Click on Sign Up. 
+Use whatever email you like - gmail, github, wustl.
+
+Once you have an account, click on the "Search for Docker Hub" search bar to look for a Docker Image. Type "numpy".
+You'll see a bunch of results sorted by "Best Match"
+The top result is "numpy/numpy-gitpod" 
+
+
+
 # Task 5: How Docker Works
 
 A common question for Docker is "What is Docker and how does it compare to a virtual machine?"
