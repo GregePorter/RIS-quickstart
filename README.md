@@ -1,4 +1,51 @@
-This repository contains all the information you need to start running jobs on the CPUs and GPUs available on WashU's RIS Cluster.
+# Overview
+Hello!
+
+This repository can serve as a guide for getting situated on the RIS as WashU.
+It's not all encompassing but it should be able to get you started.
+
+A quick initial note. Don't just copy-paste the commands in this guide. 
+
+This was originally written for a workshop offered in the fall of 2024. You'll
+see notes throughout the guide that is relevent to that (like the workshop
+directory). I tried to make some notes here and there about what the commands
+would look like post-workshop but, keep that in mind as you are working through
+the guide because you'll probably have to change some of the commands to match
+your username (at the very least).
+
+The workshop, and guide are broken down into a series of tasks. There are slides
+that supplement the guide here.
+
+    1. SSH into the RIS to make sure you connect
+    2. Install Globus Personal Connect (so you could copy code and data to the
+       RIS)
+    3. Run basic programs
+    4. Make a custom Dockerfile, build it on the RIS, and push it up to
+       DockerHub
+    5. Any additional areas that we want to explore (like how to output a file)
+
+## Repository structure 
+
+This project is broken down to somewhat match the task structure. 
+
+`slides` contains the powerpoint slides demarcated by day.
+
+`basic-examples` contains two "Hello World" example scripts: one in Python and
+the other in R. It also has an example of a `bsub file` (see
+`slides/triads-ris-workshop-day-2.pptx` for more info about a bsub file). This
+folder is to give you some basic scripts to get a better handle on running
+programs on the RIS.
+
+`docker-examples` contains two directories - `python` and `r`. These directories
+each contain a `Dockerfile` and can be used with the bsub command to build a new
+docker image on the RIS. `build-container-bsub` is a bsub file that holds the
+general command for building a container on the RIS. 
+
+`output-example` contains a couple scripts that demonstrate how outputing files
+works on the RIS.
+
+`cluser_status.py` is a little utility function that you can run on the RIS to
+get sense of the available resources in the cluster.
 
 # Task 1: Getting Access
 
@@ -27,6 +74,9 @@ If you are off-campus, you must be on the WashU VPN. Instructions on how to do s
 # Task 3: Installing Globus
 Globus is the recommended method of transferring data and scripts to the RIS.
 1. [Install Globus Connect Personal](https://docs.globus.org/globus-connect-personal/install/) - this will allow you to access your local files to then push to the RIS
+    1.1 NOTE - do NOT click High Assurance when you are configuring your
+    collection. If you click on High Assurance then you'll have to Delete your
+    configuration and remake it to share it to the RIS
 2. Open the [Globus App](https://app.globus.org/)
 3. Login with your Wustl Key
 4. Once you're connected, look for the Storage1 collection
@@ -35,7 +85,14 @@ Globus is the recommended method of transferring data and scripts to the RIS.
 7. Find the desired files, select them, and click Start to transfer them to the destination (the storage1 location)
 8. We'll start by transferring [a Python script](https://github.com/GregePorter/RIS-quickstart/blob/ede971a3a88933ec91dc296a577ee683446073ec/basic-python.py) which can be found in this repository.
 
-Note, the RIS has some [additional tutorials related to Globus](https://docs.ris.wustl.edu/doc/storage/globus.html)
+Additional notes: 
+1. The RIS has some [additional tutorials related to Globus](https://docs.ris.wustl.edu/doc/storage/globus.html)
+2. Outside of the workshop, your storage allocation path will be different; you'll be told what your path is when you sign up for the RIS too. It'll be something like this:
+
+`/storage1/fs1/artsci/Active/g.porter`
+
+where 'artsci' is replaced by the wustl username of your faculty advisor (or
+your name if you are faculty)
 
 ## Exercise 1.1: Make a directory in the workshop's storage1 location
    When you've navigated to your destination in Globus, control + click (or right-click) some whitespace. You'll see a window popup. Select New Folder. Name it your name. This will be your directory for the rest of the workshot.
@@ -113,7 +170,7 @@ The above examples are solid for basic scripts. What happens if you use an image
 
 If you run 
 
-`bsub -Is -G compute-artsci -q artsci-interactive -a "docker(python:latest)" python output-file-r.R`
+`bsub -Is -G compute-artsci -q artsci-interactive -a "docker(python:latest)" python output-file-python.py`
 
 then you'll get an error saying:
 
@@ -138,7 +195,6 @@ Use whatever email you like - gmail, github, wustl.
 Once you have an account, click on the "Search for Docker Hub" search bar to look for a Docker Image. Type "numpy".
 You'll see a bunch of results sorted by "Best Match"
 The top result is "numpy/numpy-gitpod" 
-
 
 
 # Task 5: How Docker Works
@@ -183,6 +239,7 @@ This process is the same as the earlier task. Instead of pointing the `bsub` com
 
 # Task 8: Running batches of jobs
 `https://docs.ris.wustl.edu/doc/compute/recipes/job-execution-examples.html?highlight=job%20array#arrays`
+
 The scripts for this could be `output-file-r.R` and  `output-file-python.py`
 The trick with this will be to name the file the name of the job id from the `bsub` command.
 
