@@ -17,4 +17,4 @@ RUN apt-get update \
 RUN pip install python-dotenv python-config
 
 # run the following command when building the image
-#RUN ./included_code/run_python.sh
+#RUN ./copied_code/run_python.sh

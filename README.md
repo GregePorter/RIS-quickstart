@@ -230,9 +230,20 @@ If you have an M1 Mac, you'll have to build on the RIS.
 
 1. Transfer the Dockerfile to your storage1 location on the RIS
 2. `ssh` into the RIS
-3. Run the docker build command
-   This will tag and push the image to DockerHub
+3. `cd` to the directory holding your Dockerfile
+4. Run the docker build command to this will tag and push the image to DockerHub
 
+    `bsub -G compute-workshop -q workshop -a 'docker_build(<docker_hub_username>/<name_of_container>:<name_of_tag>)' -- --tag <docker_hub_username>/<name_of_container>:<name_of_tag> .`
+    
+    or (for what it looks like for me)
+
+    `bsub -G compute-artsci -q general-interactive -a 'docker_build(gregeporter/workshop-python:with-git)' -- --tag gregeporter/workshop-python:with-git .`
+
+In the above command, I am building a docker container called workshop-python
+and tagging this particular build with the tag `with-git`. 
+
+Once the command runs, you can navigate to DockerHub to see [that container and
+tag](https://hub.docker.com/repository/docker/gregeporter/workshop-python/general).  
 
 ### Run the new Docker container
 This process is the same as the earlier task. Instead of pointing the `bsub` command to `"docker(python:latest)"` we'll point it to you DockerHub account, image and tag.
