@@ -212,7 +212,7 @@ Note, for this part, we'll need to have a DockerHub account.
 So we have this notion of a base docker container like `r-base` or `python`. What happens if we want to do something with additional libraries like `bigmemory` or `numpy`? To do this, we would have to make our dockerfile, build it (locally or on the RIS), and upload it to Dockerhub.
 
 We'll start with `Python` and then the exercise will be to do it with `R`
-1. Let's open up the [Dockerfile-python in this repository](https://github.com/GregePorter/RIS-quickstart/blob/main/Dockerfile-python)
+1. Let's open up the [Dockerfile-python in this repository](https://github.com/GregePorter/RIS-quickstart/blob/dee600a7a3ee56309c961eae2ec0d80fddf1eef8/docker-examples/python/basic_python_packages/Dockerfile)
 2. Once we have it downloaded, we have two options - build it locally and build it on the RIS.
 
 ### Building locally
