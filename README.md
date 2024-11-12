@@ -187,16 +187,6 @@ The RIS suggests that you try to find an image that already exists that takes ca
 
 While we're here, let's make a Docker Hub account. We'll use this when it comes time to make our own images, we'll use this same account.
 
-$ Task 6.1 
-
-Click on Sign Up. 
-Use whatever email you like - gmail, github, wustl.
-
-Once you have an account, click on the "Search for Docker Hub" search bar to look for a Docker Image. Type "numpy".
-You'll see a bunch of results sorted by "Best Match"
-The top result is "numpy/numpy-gitpod" 
-
-
 # Task 5: How Docker Works
 
 A common question for Docker is "What is Docker and how does it compare to a virtual machine?"
@@ -212,7 +202,7 @@ Note, for this part, we'll need to have a DockerHub account.
 So we have this notion of a base docker container like `r-base` or `python`. What happens if we want to do something with additional libraries like `bigmemory` or `numpy`? To do this, we would have to make our dockerfile, build it (locally or on the RIS), and upload it to Dockerhub.
 
 We'll start with `Python` and then the exercise will be to do it with `R`
-1. Let's open up the [Dockerfile-python in this repository](https://github.com/GregePorter/RIS-quickstart/blob/main/Dockerfile-python)
+1. Let's open up the [Dockerfile-python in this repository](https://github.com/GregePorter/RIS-quickstart/blob/dee600a7a3ee56309c961eae2ec0d80fddf1eef8/docker-examples/python/basic_python_packages/Dockerfile)
 2. Once we have it downloaded, we have two options - build it locally and build it on the RIS.
 
 ### Building locally
@@ -226,19 +216,24 @@ If you have Docker installed locally, we'll build it from the terminal.
 6. Push it to DockerHub
 
 ### Building on the RIS
-If you have an M1 Mac, you'll have to build on the RIS. 
+For consistency sake, I'd recommend building the image on the RIS
 
 1. Transfer the Dockerfile to your storage1 location on the RIS
 2. `ssh` into the RIS
-3. `cd` to the directory holding your Dockerfile
+3. `cd` to the directory holding your Dockerfill
 4. Run the docker build command to this will tag and push the image to DockerHub
 
-    `bsub -G compute-workshop -q workshop -a 'docker_build(<docker_hub_username>/<name_of_container>:<name_of_tag>)' -- --tag <docker_hub_username>/<name_of_container>:<name_of_tag> .`
+    `bsub -Is -G compute-workshop -q workshop-interactive -a 'docker_build(<docker_hub_username>/<name_of_container>:<name_of_tag>)' -- --tag <docker_hub_username>/<name_of_container>:<name_of_tag> .`
     
     or (for what it looks like for me)
 
-    `bsub -G compute-artsci -q general-interactive -a 'docker_build(gregeporter/workshop-python:with-git)' -- --tag gregeporter/workshop-python:with-git .`
+    `bsub -Is -G compute-artsci -q general-interactive -a 'docker_build(gregeporter/workshop-python:with-git)' -- --tag gregeporter/workshop-python:with-git .`
+5. **NOTE, if this is the first time you're doing this, you'll have to use the following command
 
+   `LSF_DOCKER_LOGIN=1 /bsub -Is -G compute-workshop -q workshop-interactive -a 'docker_build(<docker_hub_username>/<name_of_container>:<name_of_tag>)' -- --tag <docker_hub_username>/<name_of_container>:<name_of_tag> .`
+
+   This will prompt you to enter your password. Once you do that, run the command in Step 4. [The RIS documentation has more info](https://docs.ris.wustl.edu/doc/compute/recipes/docker-on-compute.html#build-images-using-compute)
+   
 In the above command, I am building a docker container called workshop-python
 and tagging this particular build with the tag `with-git`. 
 
