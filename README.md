@@ -61,6 +61,13 @@ and your queue and workgroup will be the following:
 
 We'll return to the queue and group later when we run jobs.
 
+Note:
+1. If you already have RIS access, try
+
+    `/storage1/fs1/g.porter/Active`
+
+but instead of `g.porter`, put in your wustl id
+
 # Task 2: Connecting to the RIS
 
 To access the RIS cluster, you must perform the following steps.
@@ -93,6 +100,9 @@ Additional notes:
 
 where 'artsci' is replaced by the wustl username of your faculty advisor (or
 your name if you are faculty)
+
+3. If you don't want to use Globus, you could look into [some other options
+   vetted by the RIS team](https://docs.ris.wustl.edu/doc/storage/03_storage.html#moving-data-into-the-storage-service)
 
 ## Exercise 1.1: Make a directory in the workshop's storage1 location
    When you've navigated to your destination in Globus, control + click (or right-click) some whitespace. You'll see a window popup. Select New Folder. Name it your name. This will be your directory for the rest of the workshot.
@@ -135,6 +145,13 @@ Let's break down this command.
    - `(python:` means to look for the [official Python container image on docker hub](https://hub.docker.com/_/python)
    - `:latest)"` tells docker to look for the Tag (or specific version of the `python` container image). There are a bunch of tags that refer to different versions (like `3.9.20` or `3.14.0a1-slim-bullseye`) which are all listed on Docker Hub.
 - `python basic-python.py` this is the command that will run when the docker container starts. In a non-interactive job, this is the thing that runs and you'll see the output in the resultant email. We can open up the `basic-python.py` to understand what we should expect to see. 
+
+Additional notes:
+1. Again, a Tag is just a way to define a version- you could have the container
+   “ubuntu:20.04” so the Tag would be 20.04. For the most part, you can Tag a
+   version of the Container with whatever would be most helpful for you and your
+   team. You could be working on a project and give a tag `testing-v0.1` and then, when ready to publish, you make a new tag
+   as `latest` or `final`.
 
 # Task 4.2: Running a basic interactive job
 An interactive job will not send you an email, instead, it will print everything to the terminal or allow you to type as if it were an ssh terminal (or python prompt). The key difference is the flag `-Is`.
@@ -240,6 +257,16 @@ and tagging this particular build with the tag `with-git`.
 Once the command runs, you can navigate to DockerHub to see [that container and
 tag](https://hub.docker.com/repository/docker/gregeporter/workshop-python/general).  
 
+Additional notes: 
+1. I'd recommend putting your custom Dockerfiles alongside your code. That way
+   if you share the project then someone can build a Docker container image on
+   their computer if they want.
+2. It doesn't have to be named `Dockerfile`. You
+   could name it something more specific like `statistics-project.Dockerfile`
+   and then in the above commands give that full name instead of `Dockerfile`
+   but, if you're going to share the project, just naming it `Dockerfile` is
+   clear.
+
 ### Run the new Docker container
 This process is the same as the earlier task. Instead of pointing the `bsub` command to `"docker(python:latest)"` we'll point it to you DockerHub account, image and tag.
 
@@ -269,6 +296,13 @@ When you run an interactive job with that in the code, you'll see
 
 in the output.
 
+Additional notes:
+1. The `export` commands listed above for STORAGE and HOME can be included in the file named 
+   `.bashrc` which will be in your home directory. This way you won't have to
+   rerun them everytime you log in. You shouldn't include the LSF_DOCKER_VOLUMES
+   in the bashrc file. [More info
+   here](https://docs.ris.wustl.edu/doc/compute/recipes/ris-compute-storage-volumes.html#store-environment-variables-in-bashrc) 
+
 ### Helpful commands
 
 If your job is stuck without landing, or your job lands and immediatly deletes itself, here are some commands you can try.
@@ -280,7 +314,9 @@ If your job is stuck without landing, or your job lands and immediatly deletes i
 6. `bhosts -w -gpu general-interactive` can be used to see what GPU's are available to a given queue. The queue in this case is `general-interactive` 
 7. `Exited with exit code 137.` is the error message you get if your job ran out
    of memory.
-8. You can view what groups you are a member in using the `groups` command.
+8. You can view what groups you are a member in using the `groups` command. like
+   this:
+    `groups g.porter`
 9. And you can view all available queues using bqueues. If you want to see which queues you can access specifically, add the -u WUSTL_KEY_ID option.
      `bqueues -u g.porter` would be mine.
 
